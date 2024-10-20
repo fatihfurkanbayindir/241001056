@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoşgeldiniz</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;   
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            background: url('düzce.jpg.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            filter: brightness(1);
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw; 
+            flex-direction: column; 
+        }
+
+        .navbar {
+            width: 100%;
+            height: 80px;
+            background: rgba(22, 112, 214, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        .close-button {
+    background-color: salmon; /* Butonun arka plan rengi */
+    color: white; /* Yazı rengi */
+    border: none; /* Kenarlık yok */
+    padding: 10px 20px; /* İç boşluk */
+    border-radius: 5px; /* Yuvarlatma */
+    font-size: 16px; /* Yazı boyutu */
+    cursor: pointer; /* Fare imleci tıklanabilir olduğunu gösterir */
+    transition: background-color 0.1s; /* Renk geçişi efekti */
+}
+
+.close-button:hover {
+    background-color: darksalmon; /* Fareyle üzerine gelindiğinde arka plan rengi değişir */
+}
+
+        .navbar .logo a {
+            text-decoration: none;
+            font-size: 40px;
+            font-family: sans-serif;
+            color: gold
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+        }
+
+        .navbar ul li {
+            margin: 0 9px;
+            position: relative;
+        }
+
+        .navbar ul li a {
+            color: gold;
+            text-decoration: none;
+            font-size: 20px;
+            padding: 6px 13px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            transition: .5s;
+        }
+
+        .navbar ul li a.active,
+        .navbar ul li a:hover {
+            background: salmon;
+            border-radius: 2px;
+        }
+
+        .page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            position: relative;
+        }
+
+        .active {
+            opacity: 1;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.6); 
+            height: 200vh;
+        }
+
+        .university-title {
+            font-size: 70px; /* Büyütme */
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: salmon; 
+            padding: 10px; /* Kenar boşluğu */
+            border: 5px solid rgba(255, 255, 255, 0.9); /* Yumuşak kenar */
+            border-radius: 15px; /* Yuvarlatma */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Gölge */
+        }
+
+        .welcome-message {
+            font-size: 30px;
+            color: rgb(106, 0, 117); 
+        }
+        .close-button {
+    background-color: salmon; /* Kapat butonunun arka plan rengi */
+    color: white; /* Yazı rengi */
+    border: none; /* Kenarlık yok */
+    padding: 10px 20px; /* İç boşluk */
+    border-radius: 5px; /* Yuvarlatma */
+    font-size: 16px; /* Yazı boyutu */
+    cursor: pointer; /* Fare imleci tıklanabilir olduğunu gösterir */
+    transition: background-color 0.3s; /* Renk geçişi efekti */
+}
+
+.close-button:hover {
+    background-color: darksalmon; /* Fareyle üzerine gelindiğinde arka plan rengi değişir */
+}
+
+.submit-button {
+    background-color: lightgreen; /* Gönder butonunun arka plan rengi */
+    color: white; /* Yazı rengi */
+    border: none; /* Kenarlık yok */
+    padding: 10px 20px; /* İç boşluk */
+    border-radius: 5px; /* Yuvarlatma */
+    font-size: 16px; /* Yazı boyutu */
+    cursor: pointer; /* Fare imleci tıklanabilir olduğunu gösterir */
+    transition: background-color 0.3s; /* Renk geçişi efekti */
+    margin-left: 10px; /* Kapat butonunun yanında biraz boşluk */
+}
+
+.submit-button:hover {
+    background-color: green; /* Fareyle üzerine gelindiğinde arka plan rengi değişir */
+}
+
+
+        .contact-popup {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: -130px; 
+            background: white;
+            border: 3px solid salmon;
+            padding: 20px; 
+            border-radius: 5px;
+            z-index: 20;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            width: 400px; 
+            height: auto; 
+        }
+
+        .full-popup {
+            display: none;
+            position: fixed; 
+            top: 10.9%; 
+            left: 10%; 
+            width: 80%; 
+            height: 80%; 
+            background: rgba(252, 248, 9, 0.86); 
+            z-index: 30; 
+            padding: 20px; 
+            overflow-y: auto; 
+            transition: all 0.3s ease; 
+        }
+
+        .hakkimda-content {
+            position: relative; /* Üst konumlandırma için gerekli */
+            padding: 10px; /* Üstten ve soldan boşluk ekle */
+        }
+
+        .project-header {
+            position: absolute; /* Üst sol köşeye yerleştirmek için */
+            top: 20px; /* Üstten boşluk */
+            left: 100px; /* Soldan boşluk */
+        }
+
+        .project-images {
+            display: flex; /* Esnek kutu modeli */
+            flex-wrap: wrap; /* Resimleri sarmak için */
+            justify-content: flex-start; /* Sol tarafa hizalama */
+            margin-top: 20px; /* Başlık ile resimler arasında boşluk */
+        }
+
+        .project-images img {
+            width: 150px; /* Resim genişliği */
+            height: 100px; /* Resim yüksekliği */
+            margin: 30px; /* Resimler arasında boşluk */
+            border-radius: 8px; /* Kenarları yuvarlamak için */
+        }
+
+        /* Anket Popup Stili */
+        .survey-popup {
+    display: none;
+    position: fixed;
+    top: 59%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: salmon;
+    padding: 20px;
+    border:salmon
+    8px solid salmon;
+    border-radius: 8px;
+    z-index: 40;
+    box-shadow: 5 5 10px rgba(199, 7, 7, 0.5);
+}
+
+        .survey-popup h2 {
+            margin-bottom: 10px;
+        }
+
+        .survey-popup label {
+            display: block;
+            margin: 10px 0;
+        }
+    </style>
+    <script>
+       let fullPopupOpen = false; 
+let surveyPopupOpen = false;
+
+function toggleFullPopup() {
+    const fullPopup = document.querySelector('.full-popup');
+    const content = `(Öğrenci no:241001056) Merhaba, ben Fatih Furkan Bayındır.Düzce Üniversitesi Bilgisayar mğhendisliği türkçe bölümü 1. sınıf öğrencisiyim. 2004 İstanbul doğumluyum. 
+        Ankara'da büyüdüm; ilkokuldan liseyi bitirene kadar Ankara'da yaşadım. 
+        Bilgisayar mühendisliğini çocukluğumdan beri istiyordum; yaklaşık 12 yaşımdan beri ilgi duyuyorum. 
+        Kurslardan tutun da Trendyol'da developer olarak çalıştım. 
+        Sosyal mühendisliğim olduğunu düşündüğüm için de siber güvenlik tarafına yönelmeyi planlıyorum.Orsa Elektrik, Efec İnşaat ve Tatil Yeri gibi şirketlerin web sitelerinin yapımında yardım ettim. Bir başka sevdiğim şey ise profesyonel olarak basketbol oynamak. Ankara'da TBL 2 Liginde 29 Mayıs'ın oyun kurucusuyum. Aynı zamanda üniversitenin ve Begoviç yurt takımının da oyun kurucusuyum. Sporlarla bildim bileli ilgiliyim; 6 yaşından beri profesyonel olarak karate yapıyorum. En büyük başarım ve ailemi gururlandırdığım an, 2015 Mart'ta ülkemizi yıldız çocuklar kategorisinde temsil ederken İstanbul Uluslararası Açık Olimpiyatları'nda finallerde Rus asıllı rakibimi yenerek kendi yaş grubumda dünya şampiyonu olduğum andı. Daha sonrasında, Makedonya'da 2017'de maç sırasında yaşadığım sakatlıkla birlikte karateyi bırakma kararı aldım. 2019'da güreş ve MMA'ya (Karma Dövüş Sanatları) başladım. 2022'de Ankara'da ve 2023'te Türkiye'de orta siklette Ankara 2.'liğim ve Türkiye 3.'lüğüm var. Benim için hayat, spor ve yazılımdan ibaret; ikisini de yapmaktan hoşlanıyorum.`;
+
+    if (fullPopupOpen) {
+        fullPopup.classList.remove('show');
+        setTimeout(() => {
+            fullPopup.style.display = 'none';
+        }, 500);
+        fullPopupOpen = false; 
+    } else {
+        fullPopup.style.display = 'block';
+        fullPopup.innerHTML = `<h1>Hakkımda</h1>
+    <p style="font-size: 24px;">${content}</p>
+    <button class="close-button" onclick="toggleFullPopup()">Kapat</button>`;
+        setTimeout(() => {
+            fullPopup.classList.add('show');
+        }, 10);
+        fullPopupOpen = true; 
+    }
+}
+
+
+        function showHome() {
+            document.querySelector('.center').classList.add('active');
+            document.querySelector('.hakkimda-content').classList.remove('active');
+            closeSurveyPopup(); // Anket pop-up'ını kapat
+        }
+
+        function showProjects() {
+    document.querySelector('.center').classList.remove('active');
+    const projectsPage = document.querySelector('.hakkimda-content');
+    projectsPage.classList.add('active');
+    projectsPage.innerHTML = `
+ <div class="project-header" style="color: lightyellow;">.</div> <!-- Başlık -->
+ <p style="font-size: 35px; text-align: left; background-color: rgba(255, 255, 255, 0.5);  margin-bottom: 200px; color: #00008B;">
+    Aşağıda çalıştığım projelerden bazıları bulunmaktadır. 
+    9. sınıfta <a href="https://orsa.gen.tr/" style="color: lightblue;">orsa.gen.tr</a> sitesini yapıp post cihazı ve hassas tartı yazılımı programladım.
+    Efece İnşaat'ın <a href="https://www.efece.com.tr/" style="color: salmon ;">efece.com.tr</a> site yapımına yardımcı oldum.
+    Trendyol Kazan şubesinde gelen çıkan ürünleri excel tabanı üzerinden sisteme yükledim.
+ </p>
+
+ <div class="project-images">
+    <img src="orsa.jpg.jpg" alt="Proje 1" style="width: 300px; height: 200px; margin-top: -200px"> <!-- Resim 1 -->
+    <img src="efece.jpg.jpg" alt="Proje 2" style="width: 300px; height: 200px; margin-top: -150px "> <!-- Resim 2 -->
+    <img src="t.jpg.webp" alt="Proje 3" style="width: 300px; height: 200px; margin-top: -100px "> <!-- Resim 3 -->
+ </div>`;
+}
+
+
+        function toggleContactPopup() {
+            const popup = document.querySelector('.contact-popup');
+            if (popup.style.display === 'block') {
+                popup.style.display = 'none';
+            } else {
+                popup.style.display = 'block';
+                popup.innerHTML = `<span>📞</span> +90 551 195 28 17<br><span>✉️</span> fatih243606@ogr.duzce.edu.tr`;
+            }
+        }
+
+        function openSurveyPopup() {
+    const surveyPopup = document.querySelector('.survey-popup');
+    surveyPopup.style.display = 'block';
+    surveyPopup.innerHTML = `
+        <h2>Anket</h2>
+        <p>Hangi popüler yazılım programını tercih edersiniz?</p>
+        <label><input type="radio" name="software" value="C" onclick="checkSingleSelect()"> C</label>
+        <label><input type="radio" name="software" value="Python" onclick="checkSingleSelect()"> Python</label>
+        <label><input type="radio" name="software" value="HTML" onclick="checkSingleSelect()"> HTML</label>
+        <label><input type="radio" name="software" value="CSS" onclick="checkSingleSelect()"> CSS</label>
+        <label><input type="radio" name="software" value="JavaScript" onclick="checkSingleSelect()"> JavaScript</label>
+        <button onclick="closeSurveyPopup()">Kapat</button>
+        <button onclick="submitSurvey()">Gönder</button>`; // Gönder butonu ekleniyor
+    surveyPopupOpen = true;
+}
+function submitSurvey() {
+    location.reload(); // Sayfayı yeniler
+}
+        function closeSurveyPopup() {
+            const surveyPopup = document.querySelector('.survey-popup');
+            surveyPopup.style.display = 'none';
+            surveyPopupOpen = false;
+        }
+
+        function checkSingleSelect() {
+            const inputs = document.querySelectorAll('input[name="software"]');
+            for (let input of inputs) {
+                if (input.checked) {
+                    // Diğer inputları işaretlenemez yap
+                    for (let otherInput of inputs) {
+                        if (otherInput !== input) {
+                            otherInput.disabled = true;
+                        }
+                    }
+                    break;
+                } else {
+                    // Tüm inputları tekrar etkinleştir
+                    for (let input of inputs) {
+                        input.disabled = false;
+                    }
+                }
+            }
+        }
+
+        // Tüm sayfada tıklama olayını dinle
+        window.addEventListener('click', function (e) {
+            const otherButtons = document.querySelectorAll('.navbar ul li a');
+
+            if (otherButtons.some(button => button.contains(e.target))) {
+                handleNavbarClick();
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo"><a href="#">Fatih Furkan Bayındır</a></div>
+        <ul>
+            <li><a href="#" class="active" onclick="showHome()">Ana Sayfa</a></li>
+            <li><a href="#" onclick="toggleFullPopup()">Hakkımda</a></li>
+            <li><a href="#" onclick="showProjects()">Projeler</a></li>
+            <li><a href="#" onclick="toggleContactPopup()">İletişim</a>
+                <div class="contact-popup"></div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="page center active">
+            <div class="university-title">Düzce Üniversitesi</div>
+            <div class="welcome-message">Bilgisayar Mühendisliğine Hoşgeldiniz!</div>
+            <div class="buttons">
+                <button onclick="openSurveyPopup()">Anket</button>
+            </div>
+        </div>
+        <div class="page hakkimda-content">
+            <!-- Hakkımda içeriği burada görüntülenecek -->
+        </div>
+    </div>
+    
+    <div class="full-popup"></div>
+    <div class="survey-popup"></div>
+</body>
+</html>
